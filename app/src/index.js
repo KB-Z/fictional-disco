@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiemRvbm5lcjE3OSIsImEiOiJjazRtdjcyb2kwb3VpM2Rvd3I3cjlyenRlIn0.c6AAxHAOxxkOPyGZxEhwMQ';
+mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API_KEY}`;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
