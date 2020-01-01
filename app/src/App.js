@@ -1,7 +1,16 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Security, ImplicitCallback } from '@okta/okta-react';
+import Home from './Home';
+
+const config = {
+  issuer: 'https://dev-732359.okta.comDashboard/oauth2/default',
+  redirectUri: window.location.origin + '/implicit/callback',
+  clientId: '0oa2dco59cSnOEHvP357',
+  pkce: true
+}
 
 class App extends React.Component{
   constructor(props) {
@@ -29,13 +38,17 @@ class App extends React.Component{
   }
   render() {
     return (
-      <div>
-        <div className='sidebarStyle'>
-          <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
-        </div>
-        <div ref={el => this.mapContainer = el} className='mapContainer' />
-      </div>
-    )
+      <Router>
+        <Security {...config}>
+          <Route path='/' exact={true} component={Home}/>
+          <Route path='/implicit/callback' component={ImplicitCallback}/>
+          <div className='sidebarStyle'>
+            <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
+          </div>
+          <div ref={el => this.mapContainer = el} className='mapContainer' />
+        </Security>
+      </Router>
+    );
   }
 }
 
