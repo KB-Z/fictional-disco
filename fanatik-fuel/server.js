@@ -8,6 +8,10 @@ require('dotenv').config();
 const PORT = process.env.PORT;
 
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const ISSUER = process.env.ISSUER;
+const CLIENT_ID = process.env.CLIENT_ID;
+const REDIRECT_URI = process.REDIRECT_URI;
+// const BASE_URL = process.BASE_URL;
 // const MONGODB_URI = process.env.MONGODB_URI;
 //
 // mongoose.connect(MONGODB_URI, { useNewUrlParser:true, useUnifiedTopology:true, useFindAndModify:false, useCreateIndex:true }, () => {
@@ -24,10 +28,10 @@ app.use(session({
 }));
 
 const oidc = new ExpressOIDC({
-  issuer: 'https://dev-732359.okta.com/oauth2/default',
-  client_id: '0oa2e084p0sbkkwVj357',
+  issuer: ISSUER,
+  client_id: CLIENT_ID,
   client_secret: CLIENT_SECRET,
-  redirect_uri: 'http://localhost:8080/fanatik-fuel/signin.html/',
+  redirect_uri: REDIRECT_URI,
   appBaseUrl: 'http://localhost:3008',
   scope: 'openid profile'
 });
