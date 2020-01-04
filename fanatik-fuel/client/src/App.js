@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
+// import ReactDOM from 'react-dom';
+import { Route } from 'react-router-dom';
+import { SecureRoute, ImplicitCallback } from '@okta/okta-react';
+
+import Navigation from './components/shared/Navigation';
+import HomePage from './components/home/HomePage';
+import RegistrationForm from './components/auth/RegistrationForm';
+import LoginPage from './components/auth/LoginPage';
+import ProfilePage from './components/auth/ProfilePage';
+import config from './app.config';
 import mapboxgl from 'mapbox-gl';
+// import './index.css';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Security, ImplicitCallback } from '@okta/okta-react';
-import Home from './Home';
-import Login from './components/Login';
+// import Home from './Home';
+// import Login from './components/Login';
 
-const config = {
-  issuer: 'https://dev-732359.okta.comDashboard/oauth2/default',
-  redirectUri: window.location.origin + '/implicit/callback',
-  clientId: '0oa2dco59cSnOEHvP357',
-  pkce: true
-}
+// mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API_KEY}`;
 
-class App extends React.Component{
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,18 +43,23 @@ class App extends React.Component{
   }
   render() {
     return (
-      <Router>
-        <Security {...config}>
-          <Route path='/' exact={true} component={Home}/>
-          <Route path='/implicit/callback' component={ImplicitCallback}/>
+      <div className="App">
+        <Navigation />
+        <main>
+          <Route path="/" exact component={HomePage} />
+          <Route
+            path="/login"
+            render={() => <LoginPage baseUrl={config.url} />}
+          />
+          <Route path="/implicit/callback" component={ImplicitCallback} />
+          <Route path="/register" component={RegistrationForm} />
+          <SecureRoute path="/profile" component={ProfilePage} />
+        </main>
           <div className='sidebarStyle'>
             <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
           </div>
           <div ref={el => this.mapContainer = el} className='mapContainer' />
-        </Security>
-      </Router>
+      </div>
     );
   }
 }
-
-export default App;
