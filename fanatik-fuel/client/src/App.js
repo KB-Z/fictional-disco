@@ -41,7 +41,6 @@ class App extends React.Component{
     return (
       <Router>
         <Security {...config}>
-          <Login/>
           <Route path='/' exact={true} component={Home}/>
           <Route path='/implicit/callback' component={ImplicitCallback}/>
           <div className='sidebarStyle'>
