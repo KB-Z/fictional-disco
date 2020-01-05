@@ -4,18 +4,18 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { Route } from 'react-router-dom';
-// import { SecureRoute, ImplicitCallback } from '@okta/okta-react';
-import { ImplicitCallback } from '@okta/okta-react';
+import { SecureRoute, ImplicitCallback } from '@okta/okta-react';
 
-import Navigation from './components/shared/Navigation';
-import HomePage from './components/home/HomePage';
-import RegistrationForm from './components/auth/RegistrationForm';
-import LoginPage from './components/auth/LoginPage';
-import ProfilePage from './components/auth/ProfilePage';
-import config from './app.config';
+// import Navigation from './components/shared/Navigation';
+// import HomePage from './components/home/HomePage';
+// import RegistrationForm from './components/auth/RegistrationForm';
+// import LoginPage from './components/auth/LoginPage';
+// import ProfilePage from './components/auth/ProfilePage';
+// import config from './app.config';
 import mapboxgl from 'mapbox-gl';
 import AppHeader from './components/AppHeader';
 import Home from './pages/Home';
+import PostsManager from './pages/PostsManager';
 // import './App.css';
 
 const styles = theme => ({
@@ -33,6 +33,7 @@ const App = ({ classes }) => (
     <AppHeader />
     <main className={classes.main}>
       <Route exact path="/" component={Home} />
+      <SecureRoute path="/posts" component={PostsManager} />
       <Route path="/implicit/callback" component={ImplicitCallback} />
     </main>
   </Fragment>
