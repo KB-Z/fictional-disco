@@ -8,7 +8,7 @@ const session = require('express-session');
 const { ExpressOIDC } = require('@okta/oidc-middleware');
 require('dotenv').config();
 // const db = mongoose.connection;
-const PORT = process.env.PORT;
+// const PORT = process.env.PORT;
 
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const ISSUER = process.env.ISSUER;
@@ -19,7 +19,7 @@ const oidc = new ExpressOIDC({
   client_id: CLIENT_ID,
   client_secret: CLIENT_SECRET,
   redirect_uri: REDIRECT_URI,
-  appBaseUrl: 'http://localhost:3008',
+  appBaseUrl: 'http://localhost:3001',
   scope: 'openid profile'
 });
 
@@ -64,6 +64,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.all('*', oidc.ensureAuthenticated());
+
 app.get('/', (req, res) => {
   if (req.userContext.userinfo) {
     res.send(`Hi ${req.userContext.userinfo.name}!`);
@@ -73,15 +75,15 @@ app.get('/', (req, res) => {
 });
 
 oidc.on('ready', () => {
-  app.listen(3008, () => console.log(`Started!`));
+  app.listen(3001, () => console.log(`Started!`));
 });
 
 oidc.on('error', err => {
   console.log('Unable to configure ExpressOIDC', err);
 });
 
-app.listen(PORT, () => {
-  console.log('Herro');
-});
+// app.listen(PORT, () => {
+//   console.log('Herro');
+// });
 
 module.exports = app;
