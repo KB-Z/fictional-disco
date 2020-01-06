@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
-import {
-  Typography,
-} from '@material-ui/core';
 
-export default class MapUI extends React.Component {
+export default class MapUI extends Component {
   constructor(props) {
-      super(props);
+      super(props)
       this.state = {
-        lng: 5,
-        lat: 34,
-        zoom: 2,
+        lng: this.props.state.viewport.longitude,
+        lat: this.props.state.viewport.latitude,
+        zoom: this.props.state.viewport.zoom,
         viewport:{
           width: "100vw",
           height: "100vh",

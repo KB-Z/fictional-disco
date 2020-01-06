@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import mapboxgl from 'mapbox-gl';
+// import mapboxgl from 'mapbox-gl';
 // import { BrowserRouter as Router } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Security } from '@okta/okta-react';
 // import './index.css';
-import config from './app.config';
+// import config from './app.config';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API_KEY}`;
+// mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_API_KEY}`;
 
 const oktaConfig = {
   issuer: `${process.env.REACT_APP_OKTA_ORG_URL}/oauth2/default`,

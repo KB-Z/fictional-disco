@@ -15,12 +15,13 @@ const styles = {
   },
 };
 
-const AppHeader = ({ classes }) => (
-   <AppBar position="static">
+const AppHeader = ({ setUserLocation, classes }) => (
+   <AppBar position="absolute">
      <Toolbar>
        <Typography variant="h6" color="inherit">
-         My React App
+         Fanatik Fuel
        </Typography>
+       <Button color="inherit" onClick={setUserLocation} >My Location</Button>
        <Button color="inherit" component={Link} to="/">Home</Button>
        <Button color="inherit" component={Link} to="/posts">Posts Manager</Button>
        <div className={classes.flex} />
