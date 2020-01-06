@@ -6,12 +6,6 @@ import {
 import { Route } from 'react-router-dom';
 import { SecureRoute, ImplicitCallback } from '@okta/okta-react';
 
-// import Navigation from './components/shared/Navigation';
-// import HomePage from './components/home/HomePage';
-// import RegistrationForm from './components/auth/RegistrationForm';
-// import LoginPage from './components/auth/LoginPage';
-// import ProfilePage from './components/auth/ProfilePage';
-// import config from './app.config';
 import mapboxgl from 'mapbox-gl';
 import AppHeader from './components/AppHeader';
 import Home from './pages/Home';
