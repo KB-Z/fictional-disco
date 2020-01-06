@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom';
 import { SecureRoute, ImplicitCallback } from '@okta/okta-react';
 
 // import mapboxgl from 'mapbox-gl';
-import ReactMapGL from 'react-map-gl';
+import ReactMapGL, { Marker } from 'react-map-gl';
 import AppHeader from './components/AppHeader';
 // import Home from './pages/Home';
 import PostsManager from './pages/PostsManager';
@@ -32,8 +32,9 @@ class App extends Component {
         height: "98vh",
         latitude: 33.748795,
         longitude: -84.384904,
-        zoom: 14
-      }
+        zoom: 10
+      },
+      userLocation: {}
     }
   }
     setUserLocation = () => {
@@ -43,11 +44,11 @@ class App extends Component {
           long: position.coords.longitude
         };
         let newViewport = {
-          height: "100vh",
+          height: "98vh",
           width: "100vw",
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-          zoom: 10
+          zoom: 16
         };
         this.setState({
           viewport: newViewport,
@@ -61,13 +62,22 @@ class App extends Component {
           <CssBaseline />
           <AppHeader setUserLocation={this.setUserLocation} />
           <main>
-            <button className="location" onClick={this.setUserLocation}>My Location</button>
             <div className="map">
               <ReactMapGL
               {...this.state.viewport}
               mapStyle="mapbox://styles/zdonner179/ck4sq2ix3027r1cl58pru9005"
               mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
-              onViewportChange={(viewport => this.setState({viewport}))}>
+              onViewportChange={viewport => this.setState({viewport})}>
+              {Object.keys(this.state.userLocation).length !== 0 ? (
+                <Marker
+                  latitude={this.state.userLocation.lat}
+                  longitude={this.state.userLocation.long}
+                >
+                  <img className="location-icon" src="ICON-MEET-CARBON-3X.png" />
+                </Marker>
+              ) : (
+                <div>Empty</div>
+              )}
               </ReactMapGL>
             </div>
             <SecureRoute path="/posts" component={PostsManager} />
