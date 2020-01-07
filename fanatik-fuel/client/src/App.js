@@ -19,16 +19,14 @@ const styles = theme => ({
   },
 });
 
-const EVENTS = [];
-
-class Markers extends PureComponent {
-  render() {
-    const {data} = this.props;
-    return data.map(
-      event => <Marker key={event.name} longitude={event.longitude} latitude={event.latitude} ><img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" /></Marker>
-    )
-  }
-}
+// class Markers extends PureComponent {
+//   render() {
+//     const {data} = this.props.events;
+//     return data.map(
+//       event => <Marker key={event.name} longitude={event.longitude} latitude={event.latitude} ><img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" /></Marker>
+//     )
+//   }
+// }
 
 class App extends PureComponent {
   constructor(props) {
@@ -43,13 +41,21 @@ class App extends PureComponent {
       },
       userLocation: {},
       markers: [],
-      setMarkers: []
+      events: []
     }
   }
-  onClickMap(e) {
+  onClickMap = (e) => {
     console.log(e.lngLat);
+    let setMarker = {
+      lng: e.lngLat[0],
+      lat: e.lngLat[1]
+    };
+    this.setState({
+      markers: setMarker
+    });
+    console.log(this.state.markers);
     e.stopPropagation();
-  }
+  };
   setUserLocation = () => {
     navigator.geolocation.getCurrentPosition(position => {
       let setUserLocation = {
@@ -93,7 +99,6 @@ class App extends PureComponent {
             ) : (
               <div>Empty</div>
             )}
-            <Markers data={EVENTS} />
             </ReactMapGL>
           </div>
           <SecureRoute path="/posts" component={PostsManager} />
