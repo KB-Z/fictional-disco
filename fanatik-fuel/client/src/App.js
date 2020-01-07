@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom';
 import { SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import AppHeader from './components/AppHeader';
-import PostsManager from './pages/PostsManager';
+// import PostsManager from './pages/PostsManager';
 import './App.css';
 
 const styles = theme => ({
@@ -114,7 +114,6 @@ class App extends Component {
             </>
             </ReactMapGL>
           </div>
-          <SecureRoute path="/posts" component={PostsManager} />
           <Route path="/implicit/callback" component={ImplicitCallback} />
         </main>
       </Fragment>
