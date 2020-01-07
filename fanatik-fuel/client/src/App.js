@@ -52,10 +52,11 @@ class App extends Component {
       lng: e.lngLat[0],
       lat: e.lngLat[1]
     };
+    this.state.markers.push(setMarker);
     this.setState({
-      markers: setMarker
+      events: this.state.markers
     });
-    console.log(this.state.markers);
+    console.log(this.state.events);
     e.stopPropagation();
   };
   setUserLocation = () => {
@@ -101,11 +102,16 @@ class App extends Component {
             ) : (
               <div>Empty</div>
             )}
-            {this.state.events.length !== 0 ? (
-              <Marker longitude={this.state.events.lng} latitude={this.state.events.lat} ><img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" /></Marker>
-            ) : (
-              <div>Empty</div>
-            )}
+            <>
+              {this.state.markers.map((event, index) => (
+                <Marker key={index}
+                  longitude={event.lng}
+                  latitude={event.lat}
+                >
+                  <img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="eventImg" />
+                </Marker>
+              ))}
+            </>
             </ReactMapGL>
           </div>
           <SecureRoute path="/posts" component={PostsManager} />
