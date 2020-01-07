@@ -1,4 +1,4 @@
-import React, { Fragment, PureComponent } from 'react';
+import React, { Fragment, Component } from 'react';
 import {
   CssBaseline,
   withStyles,
@@ -19,16 +19,18 @@ const styles = theme => ({
   },
 });
 
-// class Markers extends PureComponent {
-//   render() {
-//     const {data} = this.props.events;
-//     return data.map(
-//       event => <Marker key={event.name} longitude={event.longitude} latitude={event.latitude} ><img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" /></Marker>
-//     )
-//   }
-// }
+class Markers extends Component {
+  render() {
+    if(this.props.events){
+    const data = this.props.events;
+    return data.map(
+      event => <Marker key={event.name} longitude={event.lng} latitude={event.lat} ><img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" /></Marker>
+      )
+    }
+  }
+}
 
-class App extends PureComponent {
+class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -96,6 +98,11 @@ class App extends PureComponent {
               >
                 <img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" />
               </Marker>
+            ) : (
+              <div>Empty</div>
+            )}
+            {this.state.events.length !== 0 ? (
+              <Marker longitude={this.state.events.lng} latitude={this.state.events.lat} ><img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" /></Marker>
             ) : (
               <div>Empty</div>
             )}
