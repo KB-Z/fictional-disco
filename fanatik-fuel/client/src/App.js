@@ -29,13 +29,16 @@ class App extends Component {
     this.state = {
       viewport: {
         width: "100vw",
-        height: "98vh",
+        height: "100vh",
         latitude: 33.748795,
         longitude: -84.384904,
         zoom: 10
       },
       userLocation: {}
     }
+  }
+  onClickMap(e) {
+    console.log(e.lngLat);
   }
   setUserLocation = () => {
     navigator.geolocation.getCurrentPosition(position => {
@@ -44,7 +47,7 @@ class App extends Component {
         long: position.coords.longitude
       };
       let newViewport = {
-        height: "98vh",
+        height: "100vh",
         width: "100vw",
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
@@ -67,7 +70,8 @@ class App extends Component {
             {...this.state.viewport}
             mapStyle="mapbox://styles/zdonner179/ck4sq2ix3027r1cl58pru9005"
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
-            onViewportChange={viewport => this.setState({viewport})}>
+            onViewportChange={viewport => this.setState({viewport})}
+            onDblClick={this.onClickMap}>
             {Object.keys(this.state.userLocation).length !== 0 ? (
               <Marker
                 latitude={this.state.userLocation.lat}
