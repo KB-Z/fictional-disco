@@ -1,17 +1,13 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import {
   CssBaseline,
   withStyles,
 } from '@material-ui/core';
 import { Route } from 'react-router-dom';
 import { SecureRoute, ImplicitCallback } from '@okta/okta-react';
-
-// import mapboxgl from 'mapbox-gl';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import AppHeader from './components/AppHeader';
-// import Home from './pages/Home';
 import PostsManager from './pages/PostsManager';
-// import MapGL from './components/MapGL';
 import './App.css';
 
 const styles = theme => ({
@@ -23,7 +19,18 @@ const styles = theme => ({
   },
 });
 
-class App extends Component {
+const EVENTS = [];
+
+class Markers extends PureComponent {
+  render() {
+    const {data} = this.props;
+    return data.map(
+      event => <Marker key={event.name} longitude={event.longitude} latitude={event.latitude} ><img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" /></Marker>
+    )
+  }
+}
+
+class App extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -34,11 +41,14 @@ class App extends Component {
         longitude: -84.384904,
         zoom: 10
       },
-      userLocation: {}
+      userLocation: {},
+      markers: [],
+      setMarkers: []
     }
   }
   onClickMap(e) {
     console.log(e.lngLat);
+    e.stopPropagation();
   }
   setUserLocation = () => {
     navigator.geolocation.getCurrentPosition(position => {
@@ -71,17 +81,19 @@ class App extends Component {
             mapStyle="mapbox://styles/zdonner179/ck4sq2ix3027r1cl58pru9005"
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
             onViewportChange={viewport => this.setState({viewport})}
-            onDblClick={this.onClickMap}>
+            onDblClick={this.onClickMap}
+            doubleClickZoom={false}>
             {Object.keys(this.state.userLocation).length !== 0 ? (
               <Marker
                 latitude={this.state.userLocation.lat}
                 longitude={this.state.userLocation.long}
               >
-                <img className="location-icon" src="ICON-MEET-CARBON-3X.png" />
+                <img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" />
               </Marker>
             ) : (
               <div>Empty</div>
             )}
+            <Markers data={EVENTS} />
             </ReactMapGL>
           </div>
           <SecureRoute path="/posts" component={PostsManager} />
