@@ -19,17 +19,6 @@ const styles = theme => ({
   },
 });
 
-class Markers extends Component {
-  render() {
-    if(this.props.events){
-    const data = this.props.events;
-    return data.map(
-      event => <Marker key={event.name} longitude={event.lng} latitude={event.lat} ><img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" /></Marker>
-      )
-    }
-  }
-}
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -97,7 +86,7 @@ class App extends Component {
                 latitude={this.state.userLocation.lat}
                 longitude={this.state.userLocation.long}
               >
-                <img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="userImg" />
+                <img className="location-icon" src="ICON-MEET-RED-3X.png" alt="userImg" />
               </Marker>
             ) : (
               <div>Empty</div>
@@ -108,7 +97,7 @@ class App extends Component {
                   longitude={event.lng}
                   latitude={event.lat}
                 >
-                  <img className="location-icon" src="ICON-MEET-CARBON-3X.png" alt="eventImg" />
+                  <img className="location-icon" src="ICON-MEET-RED-3X.png" alt="eventImg" />
                 </Marker>
               ))}
             </>
