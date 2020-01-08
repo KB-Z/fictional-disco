@@ -7,7 +7,6 @@ import { Route } from 'react-router-dom';
 import { SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import AppHeader from './components/AppHeader';
-// import PostsManager from './pages/PostsManager';
 import './App.css';
 
 const styles = theme => ({
@@ -89,7 +88,6 @@ class App extends Component {
             ) : (
               <div>Empty</div>
             )}
-            <>
               {this.state.markers.map((event, index) => (
                 <Marker key={index}
                   longitude={event.lng}
@@ -98,7 +96,6 @@ class App extends Component {
                   <img className="location-icon" src="ICON-MEET-RED-3X.png" alt="eventImg" />
                 </Marker>
               ))}
-            </>
             </ReactMapGL>
           </div>
           <Route path="/implicit/callback" component={ImplicitCallback} />

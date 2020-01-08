@@ -22,7 +22,7 @@ const AppHeader = ({ setUserLocation, classes }) => (
          Fanatik Fuel
        </Typography>
        <Button color="inherit" onClick={setUserLocation} >My Location</Button>
-       // <Button color="inherit" component={Link} to="/">Home</Button>
+       <Button color="inherit" component={Link} to="/">Home</Button>
        <div className={classes.flex} />
       <LoginButton />
      </Toolbar>
