@@ -36,7 +36,6 @@ class App extends Component {
     }
   }
   onClickMap = (e) => {
-    console.log(e.lngLat);
     let setMarker = {
       lng: e.lngLat[0],
       lat: e.lngLat[1]
@@ -45,7 +44,6 @@ class App extends Component {
     this.setState({
       events: this.state.markers
     });
-    console.log(this.state.events);
     e.stopPropagation();
   };
   setUserLocation = () => {
